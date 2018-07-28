@@ -12,7 +12,7 @@ setuptools.setup(
                 " given urls and keywords.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/pypa/sampleproject",
+    url="https://github.com/Sreejoy/CrawlerFriend",
     packages=setuptools.find_packages(),
     classifiers=(
         "Programming Language :: Python :: 2.7",

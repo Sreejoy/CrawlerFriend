@@ -117,7 +117,7 @@ class CrawlerFriend():
         try:
             print "Visiting:%s" % url
             self.visited_links.add(url)
-            html_result = requests.get(url)
+            html_result = requests.get(url,verify=False)
             content = html_result.text
             html = BeautifulSoup(content)
 
