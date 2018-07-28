@@ -24,7 +24,7 @@ How to start the Crawler? Crawler takes 4 Arguments:
 4. tags [Optional] (The HTML tags that the Crawler will search for,By Default its value is ['title', 'h1', 'h2', 'h3'])
 
 ```
-crawler = CrawlerFriend(["https://Website1.com/", "http://Website2.com/"], ["Keyword1", "Keyword2"])
+crawler = CrawlerFriend.Crawler(["https://Website1.com/", "http://Website2.com/"], ["Keyword1", "Keyword2"])
 crawler.crawl()
 ```
 
@@ -54,7 +54,7 @@ result_dict = crawler.get_result_of_keyword('keyword1')
 CrawlerFriend uses 50 as max_link_limit by default for searching. 
 But users can use their own max_link_limit as well like this:
  ```
-crawler = CrawlerFriend(["https://Website1.com/", "http://Website2.com/"], ["Keyword1", "Keyword2"], max_link_limit=200)
+crawler = CrawlerFriend.Crawler(["https://Website1.com/", "http://Website2.com/"], ["Keyword1", "Keyword2"], max_link_limit=200)
 crawler.crawl()
 ```
 
@@ -62,6 +62,6 @@ crawler.crawl()
 CrawlerFriend uses four HTML tags 'title', 'h1', 'h2', 'h3' by default for searching. 
 But users can use their own tags as well like this:
  ```
-crawler = CrawlerFriend(["https://Website1.com/", "http://Website2.com/"], ["Keyword1","Keyword2"], tags=['p','h4'])
+crawler = CrawlerFriend.Crawler(["https://Website1.com/", "http://Website2.com/"], ["Keyword1","Keyword2"], tags=['p','h4'])
 crawler.crawl()
 ```

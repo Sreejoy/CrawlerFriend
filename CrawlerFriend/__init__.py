@@ -10,14 +10,14 @@ content on a web browser.
 """
 
 __author__ = "Sreejoy Halder (sreejoy4242@gmail.com)"
-__version__ = "1.0.1"
+__version__ = "1.0.8"
 __copyright__ = "Copyright (c) 2018 Sreejoy Halder"
 __license__ = "MIT"
 
 import webbrowser,requests,Queue
 from bs4 import BeautifulSoup
 
-class CrawlerFriend():
+class Crawler():
     """
         This class defines the basic crawler given the website links,
         keywords and target HTML tags.
@@ -119,7 +119,7 @@ class CrawlerFriend():
             self.visited_links.add(url)
             html_result = requests.get(url,verify=False)
             content = html_result.text
-            html = BeautifulSoup(content)
+            html = BeautifulSoup(content, "html.parser")
 
             for tag in self.inspected_tags:
                 for data in html.find_all(tag):
@@ -254,6 +254,6 @@ class CrawlerFriend():
             return ValueError("'%s' is not a predefined keyword"%key)
 
 if __name__ == '__main__':
-    crawler = CrawlerFriend(["URL1","URL2"],["Keyword1","Keyword2"])
+    crawler = Crawler(["URL1","URL2"],["Keyword1","Keyword2"])
     crawler.crawl()
     crawler.get_result_in_html()
