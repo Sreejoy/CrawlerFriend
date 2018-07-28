@@ -6,18 +6,18 @@ A light weight **Web Crawler** that supports **Python 2.7** which gives search r
 then this python package (which is a friend of you and a crawler by nature) will automate the task for you and 
 return the result in a **HTML** file in your **web browser**.
 
-###Installation
+### Installation
 ```
 pip install CrawlerFriend
 ```
 
-###Start the Crawler
-####Import Module
+### Start the Crawler
+#### Import Module
 ```
 import CrawlerFriend
 ```
-####Start the Crawler
-Start the Crawler. Crawler takes 4 Arguments:
+#### Start the Crawler
+How to start the Crawler? Crawler takes 4 Arguments:
 1. urls (List of URLs)
 2. keywords (List of Keywords) 
 3. max_link_limit [Optional] (Maximum no. of link that will be visited, By Default its value is 50)
@@ -28,29 +28,29 @@ crawler = CrawlerFriend(["https://Website1.com/", "http://Website2.com/"], ["Key
 crawler.crawl()
 ```
 
-###Get Search Results
+### Get Search Results
 There are several ways to get the search results(all or for a keyword) in HTML or in Dictionary form
-####All Result in HTML
+#### All Result in HTML
 ```
 crawler.get_result_in_html()
 ```
 
-####All Result in Dictionary
+#### All Result in Dictionary
 ```
 result_dict = crawler.get_result()
 ```
 
-####Result of a Keyword in HTML
+#### Result of a Keyword in HTML
 ```
 crawler.get_result_of_keyword_in_html()
 ```
 
-####Result of a Keyword in Dictionary
+#### Result of a Keyword in Dictionary
 ```
 result_dict = crawler.get_result_of_keyword('keyword1')
 ```
 
-###Specify Max Link Limit
+### Specify Max Link Limit
 CrawlerFriend uses 50 as max_link_limit by default for searching. 
 But users can use their own max_link_limit as well like this:
  ```
@@ -58,7 +58,7 @@ crawler = CrawlerFriend(["https://Website1.com/", "http://Website2.com/"], ["Key
 crawler.crawl()
 ```
 
-###Specify tags
+### Specify tags
 CrawlerFriend uses four HTML tags 'title', 'h1', 'h2', 'h3' by default for searching. 
 But users can use their own tags as well like this:
  ```
