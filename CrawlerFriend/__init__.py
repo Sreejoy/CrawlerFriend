@@ -104,7 +104,37 @@ class Crawler():
                     return True, each
         return False, ""
 
-    def _add_new_links(self,url):
+    def _is_partial_link(self, link):
+        """
+        Given a link will return True if the link is partial(/setting/abcd)
+        else return False
+        :return: True/False
+        """
+        link=link.encode("utf8")
+        if "www." in link:
+            return False
+        else:
+            return True
+
+    def _append_link(self, link, suffix):
+        """
+        Given a link and a suffix will append the suffix to the base URL of the link
+        Suppose link is: www.abc.com/settings
+        and suffix is: /profile
+        now base URL is : www.abc.com
+        after appending suffix with base URL we get: www.abc.com/profile
+        :return: appended link
+        """
+        link = str(link.encode("utf8")).strip()
+        suffix = str(suffix.encode("utf8")).strip()
+
+        #get the base URL, get the last index of slash and slice the string before it
+        base_url = link[0:link.rfind("/")]
+        if not suffix.startswith("/"):
+            suffix = "/"+suffix
+        return base_url+suffix
+
+    def _add_new_links(self, url):
         """
         Given a URL it will inspect the HTML of the URL and find for user defined tags and all the links.
         Then it will inspect of the text of those tags or links contain any user defined keywords.
@@ -115,6 +145,8 @@ class Crawler():
         :return: None
         """
         try:
+            if url in self.visited_links:
+                return
             print "Visiting:%s" % url
             self.visited_links.add(url)
             html_result = requests.get(url,verify=False)
@@ -132,6 +164,8 @@ class Crawler():
                 link = link.get('href')
                 if not link: continue
                 result, key = self._check_for_keywords(link, True)
+                if self._is_partial_link(link):  # if link is partial
+                    link = self._append_link(url, link)
                 if link not in self.visited_links and result:
                     self.all_links.put(link)
         except Exception, e:
@@ -254,6 +288,7 @@ class Crawler():
             return ValueError("'%s' is not a predefined keyword"%key)
 
 if __name__ == '__main__':
-    crawler = Crawler(["URL1","URL2"],["Keyword1","Keyword2"])
+    crawler = Crawler(["http://www.skysports.com/"],
+                      ["Liverpool", "Real Madrid", "Man City", "Transfer"],max_link_limit=50)
     crawler.crawl()
     crawler.get_result_in_html()
