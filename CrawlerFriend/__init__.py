@@ -16,6 +16,7 @@ __license__ = "MIT"
 
 import webbrowser,requests,Queue
 from bs4 import BeautifulSoup
+from multiprocessing.dummy import Pool as ThreadPool
 
 class Crawler():
     """
@@ -27,9 +28,10 @@ class Crawler():
     discovered_links = set()
     links_in_result = set()
     inspected_tags = ['title', 'h1', 'h2', 'h3']
-    all_links = Queue.Queue()
+    all_links = []
     visited_links = set()
     key_words = []
+    pool = ThreadPool(16)
 
     def __init__(self,urls,keywords,max_link_limit=50,tags=None):
         """
@@ -170,7 +172,7 @@ class Crawler():
                 if self._is_partial_link(link):  # if link is partial
                     link = self._append_link(url, link)
                 if result and link not in self.visited_links and link not in self.discovered_links:
-                    self.all_links.put(link)
+                    self.all_links.append(link)
                     self.discovered_links.add(link)
         except Exception, e:
             print e
@@ -184,7 +186,7 @@ class Crawler():
         """
         for url in self.base_urls:
             if url not in self.discovered_links:
-                self.all_links.put(url)
+                self.all_links.append(url)
                 self.discovered_links.add(url)
 
     def crawl(self):
@@ -195,10 +197,14 @@ class Crawler():
         """
         self._put_all_base_urls_to_queue()
 
-        while not self.all_links.empty() and len(self.visited_links) < self.max_links:
-            link = self.all_links.get()
-            if link not in self.visited_links:
-                self._add_new_links(link)
+        while len(self.all_links)>0 and len(self.visited_links) < self.max_links:
+            to_be_visited_links = []
+            for link in self.all_links:
+                if link not in self.visited_links:
+                    to_be_visited_links.append(link)
+
+            self.all_links = []
+            self.pool.map(self._add_new_links, to_be_visited_links)
 
     def get_result_in_html(self):
         """
@@ -294,7 +300,7 @@ class Crawler():
             return ValueError("'%s' is not a predefined keyword"%key)
 
 if __name__ == '__main__':
-    crawler = Crawler(["http://www.skysports.com/"],
-                      ["Liverpool", "Chelsea", "Transfer"],max_link_limit=50)
+    crawler = Crawler(["http://www.skysports.com/","http://www.goal.com/en-in"],
+                      ["Liverpool", "Chelsea", "Transfer","Barcelona","Real Madrid","Mourinho"])
     crawler.crawl()
     crawler.get_result_in_html()
