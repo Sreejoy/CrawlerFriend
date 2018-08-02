@@ -24,6 +24,8 @@ class Crawler():
     """
     max_links = 50
     all_data = {}
+    discovered_links = set()
+    links_in_result = set()
     inspected_tags = ['title', 'h1', 'h2', 'h3']
     all_links = Queue.Queue()
     visited_links = set()
@@ -157,8 +159,9 @@ class Crawler():
                 for data in html.find_all(tag):
                     text = data.string
                     result, key = self._check_for_keywords(text)
-                    if result:
+                    if result and url not in self.links_in_result:
                         self.all_data[key][text] = url
+                        self.links_in_result.add(url)
 
             for link in html.find_all("a"):
                 link = link.get('href')
@@ -166,8 +169,9 @@ class Crawler():
                 result, key = self._check_for_keywords(link, True)
                 if self._is_partial_link(link):  # if link is partial
                     link = self._append_link(url, link)
-                if link not in self.visited_links and result:
+                if result and link not in self.visited_links and link not in self.discovered_links:
                     self.all_links.put(link)
+                    self.discovered_links.add(link)
         except Exception, e:
             print e
             return
@@ -179,7 +183,9 @@ class Crawler():
         :return: None
         """
         for url in self.base_urls:
-            self.all_links.put(url)
+            if url not in self.discovered_links:
+                self.all_links.put(url)
+                self.discovered_links.add(url)
 
     def crawl(self):
         """
@@ -289,6 +295,6 @@ class Crawler():
 
 if __name__ == '__main__':
     crawler = Crawler(["http://www.skysports.com/"],
-                      ["Liverpool", "Real Madrid", "Man City", "Transfer"],max_link_limit=50)
+                      ["Liverpool", "Chelsea", "Transfer"],max_link_limit=50)
     crawler.crawl()
     crawler.get_result_in_html()
