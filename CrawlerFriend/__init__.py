@@ -14,7 +14,7 @@ __version__ = "1.0.8"
 __copyright__ = "Copyright (c) 2018 Sreejoy Halder"
 __license__ = "MIT"
 
-import webbrowser,requests,Queue
+import webbrowser,requests
 from bs4 import BeautifulSoup
 from multiprocessing.dummy import Pool as ThreadPool
 
@@ -300,7 +300,6 @@ class Crawler():
             return ValueError("'%s' is not a predefined keyword"%key)
 
 if __name__ == '__main__':
-    crawler = Crawler(["http://www.skysports.com/","http://www.goal.com/en-in"],
-                      ["Liverpool", "Chelsea", "Transfer","Barcelona","Real Madrid","Mourinho"])
+    crawler = Crawler(["URL1", "URL2"], ["Keyword1", "Keyword2"])
     crawler.crawl()
     crawler.get_result_in_html()
