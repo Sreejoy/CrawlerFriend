@@ -10,7 +10,7 @@ content on a web browser.
 """
 
 __author__ = "Sreejoy Halder (sreejoy4242@gmail.com)"
-__version__ = "1.0.10"
+__version__ = "1.0.11"
 __copyright__ = "Copyright (c) 2018 Sreejoy Halder"
 __license__ = "MIT"
 

@@ -23,6 +23,10 @@ crawler.crawl()
 crawler.get_result_in_html()
 ```
 
+The above code will open the following HTML document in Browser
+
+![](https://i.imgur.com/aPoNAYu.png)
+
 #### All Result in Dictionary
 ```
 result_dict = crawler.get_result()
