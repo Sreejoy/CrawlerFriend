@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="CrawlerFriend",
-    version="1.0.9",
+    version="1.0.10",
     author="Sreejoy Halder",
     author_email="sreejoy4242@gmail.com",
     description="A light weight crawler which gives search results in HTML form or in Dictionary form,"
