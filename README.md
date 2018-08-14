@@ -11,6 +11,7 @@ pip install CrawlerFriend
 ```
 
 ### How to use?
+#####All Result in HTML
 ```
 import CrawlerFriend
 
@@ -22,39 +23,20 @@ crawler.crawl()
 crawler.get_result_in_html()
 ```
 
-#### Get Search Results in Different Ways
-##### All Result in HTML
-```
-crawler.get_result_in_html()
-```
+This code will return the following result:
+
+![](https://i.imgur.com/xXJyjoX.png)
 
 ##### All Result in Dictionary
 ```
 result_dict = crawler.get_result()
 ```
 
-##### Result of a Keyword in HTML
-```
-crawler.get_result_of_keyword_in_html()
-```
-
-##### Result of a Keyword in Dictionary
-```
-result_dict = crawler.get_result_of_keyword('Liverpool')
-```
-
-##### Specify Max Link Limit
-CrawlerFriend uses 50 as max_link_limit by default for searching. 
-But users can use their own max_link_limit as well like this:
+##### Changing Default Arguments
+CrawlerFriend uses four HTML tags 'title', 'h1', 'h2', 'h3' and max_link_limit = 50 by default for searching.
+But it can be changed by passing arguments to the constructor:
  ```
-crawler = CrawlerFriend.Crawler(urls, keywords,max_link_limit=200)
+crawler = CrawlerFriend.Crawler(urls, keywords, max_link_limit=200, tags=['p','h4'])
 crawler.crawl()
 ```
 
-##### Specify tags
-CrawlerFriend uses four HTML tags 'title', 'h1', 'h2', 'h3' by default for searching. 
-But users can use their own tags as well like this:
- ```
-crawler = CrawlerFriend.Crawler(urls, keywords, tags=['p','h4'])
-crawler.crawl()
-```
