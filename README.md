@@ -11,7 +11,7 @@ pip install CrawlerFriend
 ```
 
 ### How to use?
-#####All Result in HTML
+#### All Result in HTML
 ```
 import CrawlerFriend
 
@@ -23,16 +23,12 @@ crawler.crawl()
 crawler.get_result_in_html()
 ```
 
-This code will return the following result:
-
-![](https://i.imgur.com/xXJyjoX.png)
-
-##### All Result in Dictionary
+#### All Result in Dictionary
 ```
 result_dict = crawler.get_result()
 ```
 
-##### Changing Default Arguments
+#### Changing Default Arguments
 CrawlerFriend uses four HTML tags 'title', 'h1', 'h2', 'h3' and max_link_limit = 50 by default for searching.
 But it can be changed by passing arguments to the constructor:
  ```
